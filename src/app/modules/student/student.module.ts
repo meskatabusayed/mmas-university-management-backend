@@ -1,13 +1,10 @@
 import { Schema, model } from 'mongoose';
-import {
-  TAddress,
-  TStudent,
-  
-  StudentModel,
-} from './student/student.interface';
+
 import validator from 'validator';
 import bcrypt from 'bcrypt';
-import config from '../config';
+import { StudentModel, TAddress, TStudent } from './student.interface';
+import config from '../../config';
+
 
 const addressSchema = new Schema<TAddress>({
   street: { type: String, required: [true, 'Street is required'] },
