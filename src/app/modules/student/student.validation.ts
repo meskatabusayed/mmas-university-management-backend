@@ -1,38 +1,35 @@
 import { z } from "zod";
 
+const guardianSchemaValidation = z.object({
+  name: z.string().min(1, "Guardian name is required"),
+  contactNo: z.string().min(1, "Guardian contact number is required"),
+  relation: z.string().min(1, "Guardian relation is required"),
+});
+
+const localGuardianValidation = z.object({
+  name: z.string().min(1, "Name is required"),
+  contactNo: z.string().min(1, "Contact number is required"),
+  relation: z.string().min(1, "Relation is required"),
+});
+
+
 export const studentValidationSchema = z.object({
-    id: z
-      .number()
-      .int()
-      .positive({ message: 'ID must be a positive integer' }),
-    password: z
-      .string()
-      .max(20 , 'maximum 20 characters' ),
-    name: z
-      .string()
-      .trim()
-      .max(20, 'Name cannot exceed 20 characters')
-      .refine((value) => value.charAt(0) === value.charAt(0).toUpperCase(), {
-        message: 'Name must start with an uppercase letter',
-      }),
-    age: z.number().min(1, 'Age is required'),
-    email: z.string().email('Invalid email format'),
-    phone: z.string().optional(),
-    address: z.object({
-      street: z.string().min(1, 'Street is required'),
-      city: z.string().min(1, 'City is required'),
-      state: z.string().min(1, 'State is required'),
-      zipCode: z.string().min(1, 'Zip Code is required'),
-    }),
-    dateOfBirth: z.string().min(1, 'Date of Birth is required'),
-    gender: z.enum(['Male', 'Female', 'Other'], {
-      errorMap: () => ({ message: 'Gender must be Male, Female, or Other' }),
-    }),
-    courses: z.array(z.string()).min(1, 'At least one course is required'),
-    gpa: z.number().min(0, 'GPA is required'),
-    isActive: z.enum(['Active', 'Block'], {
-      errorMap: () => ({ message: 'Status must be Active or Block' }),
-    }),
-    enrollmentDate: z.string().min(1, 'Enrollment date is required'),
-    isDeleted: z.boolean(),
-  });
+  id: z.string().min(1, "ID is required"),
+  user: z.string().min(1, "User reference is required"), 
+  name: z.string().min(1, "Name is required"),
+  gender: z.enum(["Male", "Female", "Other"]),
+  dateOfBirth: z.string().min(1, "Date of Birth is required"),
+  email: z.string().email("Invalid email format"),
+  contactNo: z.string().min(1, "Contact number is required"),
+  emergencyContactNo: z.string().min(1, "Emergency contact number is required"),
+  presentAddress: z.string().min(1, "Present address is required"),
+  permanentAddress: z.string().min(1, "Permanent address is required"),
+  guardian: guardianSchemaValidation,
+  localGuardian: localGuardianValidation,
+  profileImage: z.string().optional(),
+  admissionSemester: z.string().min(1, "Admission semester is required"),
+  academicDepartment: z.string().min(1, "Academic department is required"),
+  isDeleted: z.boolean().default(false),
+});
+
+

@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
+import config from '../../config';
+import bcrypt from 'bcrypt';
 import { TUser } from './user.interface';
-
 const userSchema = new Schema<TUser>(
   {
     id: { type: String, required: true, unique: true },
@@ -22,4 +23,23 @@ const userSchema = new Schema<TUser>(
   { timestamps: true } // Enables createdAt & updatedAt fields
 );
 
-export const UserModel = model<TUser>('User', userSchema);
+
+userSchema.pre('save', async function (next) {
+  
+  const user = this;
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_solt_rounds)
+  );
+  next();
+});
+
+
+userSchema.post('save', function (doc, next) {
+  
+  doc.password = ' ';
+  next();
+});
+
+
+export const User = model<TUser>('User', userSchema);

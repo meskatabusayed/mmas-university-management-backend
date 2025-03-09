@@ -1,27 +1,41 @@
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
-export type TAddress = {
-  street: string;
-  city: string;
-  state: string;
-  zipCode: string;
-};
-export type TStudent = {
-  id: number;
-  password : string;
+export type TGuardian = {
+  
   name: string;
-  age: number;
-  email: string;
-  phone?: string; // Optional field
-  address: TAddress;
-  dateOfBirth?: string; // Format: YYYY-MM-DD
-  gender: 'Male' | 'Female' | 'Other';
-  courses: string[];
-  gpa: number;
-  isActive: 'Active' | 'Block';
-  enrollmentDate: string; // Format: YYYY-MM-DD
-  isDeleted : boolean;
+  contactNo: string;
+  relation: string;
+
+}
+
+export type TLocalGuardian = {
+name: string;
+contactNo: string;
+relation: string;
 };
+
+
+
+export type TStudent = {
+id: string; 
+user : Types.ObjectId;
+name: string;
+gender: "Male" | "Female" | "Other";
+dateOfBirth: string; 
+email: string;
+contactNo: string;
+emergencyContactNo: string;
+presentAddress: string;
+permanentAddress: string;
+guardian: TGuardian;
+localGuardian: TLocalGuardian,
+profileImage?: string; 
+admissionSemester: string;
+academicDepartment: string;
+isDeleted: boolean;
+};
+
+
 
 //for static method
 export  interface StudentModel extends Model<TStudent> {
