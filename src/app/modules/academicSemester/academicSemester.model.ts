@@ -13,6 +13,18 @@ const AcademicSemesterSchema = new Schema<TAcademicSemester>(
   { timestamps: true }
 );
 
+AcademicSemesterSchema.pre('save' , async function(next){
+    const isSemesterExits = await AcademicSemester.findOne({
+        year : this.year,
+        name : this.name,
+    })
+    if(isSemesterExits){
+        throw new Error("Semester Already Exists");
+    }
+
+    next();
+})
+
 // Mongoose Model
 export const AcademicSemester = model<TAcademicSemester>(
   'AcademicSemester',

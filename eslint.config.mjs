@@ -1,4 +1,4 @@
-import eslintPluginPrettier from 'eslint-plugin-prettier';
+
 
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
@@ -13,7 +13,7 @@ export default [
     },
     plugins: {
       '@typescript-eslint': tseslint,
-      prettier: eslintPluginPrettier,
+     
     },
     rules: {
       ...tseslint.configs.recommended.rules,

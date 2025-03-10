@@ -20,6 +20,26 @@ export const createAcademicSemesterValidationSchema = z.object({
   }),
 });
 
+
+const updateAcademicSemesterValidationSchema = z.object({
+  body: z.object({
+    name: z.enum(['Autumn', 'Summer', 'Fall'], {
+      required_error: 'Name is required',
+    }).optional(),
+    year: z.number().min(4, 'Year is required and must be valid').optional(),
+    code: z.enum(['01', '02', '03'], {
+      required_error: 'Code is required',
+    }).optional(),
+    startMonth: z.enum([...months] as [string, ...string[]], {
+      required_error: 'Start month is required',
+    }).optional(),
+    endMonth: z.enum([...months] as [string, ...string[]], {
+      required_error: 'End month is required',
+    }).optional(),
+  }),
+});
+
 export const academicSemesterValidationSchemas = {
   createAcademicSemesterValidationSchema,
+  updateAcademicSemesterValidationSchema
 };

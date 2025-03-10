@@ -29,7 +29,7 @@ const studentSchema = new Schema<TStudent>(
     guardian: { type: guardianSchema, required: true },
     localGuardian: { type: localGuardianSchema, required: true },
     profileImage: { type: String },
-    admissionSemester: { type: String, required: true },
+    admissionSemester: { type: Schema.Types.ObjectId, ref : 'AcademicSemester', required: true },
     academicDepartment: { type: String, required: true },
     isDeleted: { type: Boolean, default: false, required: true },
   },
