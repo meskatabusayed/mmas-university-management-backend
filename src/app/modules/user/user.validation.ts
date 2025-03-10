@@ -6,7 +6,7 @@ const userValidationSchema = z.object({
       invalid_type_error: 'Password must be a string',
     })
     .min(6, 'Password must be at least 6 characters long')
-    .optional()
+    .optional(),
 });
 
 export const userValidation = {

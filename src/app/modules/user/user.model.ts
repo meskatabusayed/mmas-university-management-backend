@@ -15,17 +15,15 @@ const userSchema = new Schema<TUser>(
     status: {
       type: String,
       enum: ['in-progress', 'blocked'],
-      default : "in-progress",
+      default: 'in-progress',
       required: true,
     },
-    isDeleted: { type: Boolean,  default: false },
+    isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true } // Enables createdAt & updatedAt fields
 );
 
-
 userSchema.pre('save', async function (next) {
-  
   const user = this;
   user.password = await bcrypt.hash(
     user.password,
@@ -34,12 +32,9 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-
 userSchema.post('save', function (doc, next) {
-  
   doc.password = ' ';
   next();
 });
-
 
 export const User = model<TUser>('User', userSchema);

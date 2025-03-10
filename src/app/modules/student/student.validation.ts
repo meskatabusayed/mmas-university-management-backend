@@ -14,7 +14,6 @@ const localGuardianValidationSchema = z.object({
 
 const createStudentValidationSchema = z.object({
   body: z.object({
-   
     student: z.object({
       name: z.string().min(1, 'Name is required'),
       gender: z.enum(['Male', 'Female', 'Other']),
@@ -31,7 +30,6 @@ const createStudentValidationSchema = z.object({
       profileImage: z.string().optional(),
       admissionSemester: z.string().min(1, 'Admission semester is required'),
       academicDepartment: z.string().min(1, 'Academic department is required'),
-      
     }),
   }),
 });

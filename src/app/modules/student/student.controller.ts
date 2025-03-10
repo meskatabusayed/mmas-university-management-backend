@@ -4,8 +4,6 @@ import sendResponse from '../../utils/sendResponse';
 import status from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 
-
-
 const getAllStudents = catchAsync(async (req, res) => {
   const result = await studentService.getAllStudentFromDB();
   //send message

@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { StudentModel,  TStudent } from './student.interface';
-
+import { StudentModel, TStudent } from './student.interface';
 
 const guardianSchema = new Schema({
   name: { type: String, required: true },
@@ -17,10 +16,10 @@ const localGuardianSchema = new Schema({
 const studentSchema = new Schema<TStudent>(
   {
     id: { type: String, required: true, unique: true },
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+
     name: { type: String, required: true },
-    gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
+    gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
     dateOfBirth: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     contactNo: { type: String, required: true },
@@ -36,9 +35,6 @@ const studentSchema = new Schema<TStudent>(
   },
   { timestamps: true } // Adds createdAt and updatedAt
 );
-
-
-
 
 //Query middleware
 studentSchema.pre('find', async function (next) {

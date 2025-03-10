@@ -1,28 +1,28 @@
-const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
-import eslint from '@eslint/js';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
 
-export default tseslint.config(
-  eslintPluginPrettierRecommended,
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+
+/** @type {import("eslint").Linter.Config[]} */
+export default [
   {
+    files: ['**/*.ts', '**/*.mts'],
     languageOptions: {
-      globals: {
-        ...globals.node,
-      },
+      parser: tsParser,
+      sourceType: 'module',
     },
-  },
-  {
+    plugins: {
+      '@typescript-eslint': tseslint,
+      prettier: eslintPluginPrettier,
+    },
     rules: {
+      ...tseslint.configs.recommended.rules,
+      'prettier/prettier': 'error',
       'no-unused-vars': 'error',
       'no-undef': 'error',
       'prefer-const': 'error',
       'no-console': 'warn',
     },
+    ignores: ['node_modules/', 'dist/'],
   },
-  {
-    ignores: ['**/node_modules/', '**/dist/'],
-  }
-);
+];

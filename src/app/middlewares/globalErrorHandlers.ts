@@ -1,6 +1,4 @@
-import  { Request, Response, NextFunction } from "express";
-
-
+import { Request, Response, NextFunction } from 'express';
 
 // Error handler function
 const globalErrorHandler = (
@@ -11,11 +9,8 @@ const globalErrorHandler = (
 ) => {
   res.status(err.status || 500).json({
     success: false,
-    message: err.message || "Internal Server Error",
+    message: err.message || 'Internal Server Error',
   });
 };
-
-
- 
 
 export default globalErrorHandler;
