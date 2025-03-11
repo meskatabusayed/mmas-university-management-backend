@@ -4,6 +4,7 @@ import { TStudent } from '../student/student.interface';
 import { Student } from '../student/student.module';
 import { TUser } from './user.interface';
 import { User } from './user.model';
+import { genereatedStudentId } from './user.utils';
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
   //create a user object
@@ -16,12 +17,12 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
   userData.role = 'Student';
 
  
-  userData.id = '203000001';
 
+//find academic semester info
   const admissionSemester = await AcademicSemester.findById(payload.admissionSemester);
-  
-  userData.id = '203000001';
-  
+  //generated id 
+  userData.id = await genereatedStudentId(admissionSemester!);
+
   //creat a user
   const newUser = await User.create(userData);
 
