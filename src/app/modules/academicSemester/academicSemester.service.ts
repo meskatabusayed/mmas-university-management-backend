@@ -6,13 +6,13 @@ const createAcademicSemesterIntoDB = async (payLoad: TAcademicSemester) => {
   if (academicSemesterNameCodeMapper[payLoad.name] !== payLoad.code) {
     throw new Error('Invalid Semester code');
   }
-  const result = AcademicSemester.create(payLoad);
+  const result =await AcademicSemester.create(payLoad);
 
   return result;
 };
 
 const getllAcademicSemester = async() => {
-  const result = AcademicSemester.find();
+  const result =await AcademicSemester.find();
   return result;
 }
 
