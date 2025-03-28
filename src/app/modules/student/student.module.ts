@@ -30,7 +30,7 @@ const studentSchema = new Schema<TStudent>(
     localGuardian: { type: localGuardianSchema, required: true },
     profileImage: { type: String },
     admissionSemester: { type: Schema.Types.ObjectId, ref : 'AcademicSemester', required: true },
-    academicDepartment: { type: String, required: true },
+    academicDepartment: { type: Schema.Types.ObjectId, ref : 'AcademicDepartment', required: true },
     isDeleted: { type: Boolean, default: false, required: true },
   },
   { timestamps: true } // Adds createdAt and updatedAt

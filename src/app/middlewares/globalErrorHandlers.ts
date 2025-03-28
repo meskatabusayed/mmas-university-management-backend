@@ -7,9 +7,14 @@ const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  res.status(err.status || 500).json({
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
+
+  res.status(statusCode).json({
     success: false,
-    message: err.message || 'Internal Server Error',
+    statusCode,
+    message,
+    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   });
 };
 
