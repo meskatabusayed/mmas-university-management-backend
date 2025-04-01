@@ -19,8 +19,9 @@ router.get('/', courseController.getAllCourses);
 // Get a single course by ID
 router.get('/:id', courseController.getSingleCourse);
 
+router.put('/:courseId/assign-faculties', validateRequest(courseValidations.facultiesacultiesValidationSchema), courseController.assignFaculties);
 
-router.put('/:courseId', courseController.assignFaculties);
+router.delete('/:courseId/remove-faculties', validateRequest(courseValidations.facultiesacultiesValidationSchema), courseController. removeFacultiesFromCourse);
 
 // Update a course by ID
 router.patch(
@@ -30,6 +31,8 @@ router.patch(
 );
 
 // Delete a course by ID
-router.delete('/:id', courseController.deleteCourse);
+router.delete(
+  '/:id', courseController.deleteCourse
+);
 
 export const courseRoutes = router;
