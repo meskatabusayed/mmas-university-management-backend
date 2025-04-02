@@ -6,6 +6,8 @@ import { SemesterRegistrationServices } from './semesterRegistration.service';
 
 // Create a new semester registration
 const createSemesterRegistration = catchAsync(async (req, res) => {
+  console.log("Request Body:", req.body); // Debugging Line
+
   const result = await SemesterRegistrationServices.createSemesterRegistrationIntoDB(req.body);
 
   sendResponse(res, {
@@ -16,9 +18,10 @@ const createSemesterRegistration = catchAsync(async (req, res) => {
   });
 });
 
+
 // Get all semester registrations
 const getAllSemesterRegistrations = catchAsync(async (req, res) => {
-  const result = await SemesterRegistrationServices.getAllSemesterRegistrationsFromDB();
+  const result = await SemesterRegistrationServices.getAllSemesterRegistrationsFromDB(req.query);
 
   sendResponse(res, {
     statusCode: status.OK,
@@ -43,9 +46,9 @@ const getSingleSemesterRegistration = catchAsync(async (req, res) => {
 
 // Update a semester registration by ID
 const updateSemesterRegistration = catchAsync(async (req, res) => {
-  const { registrationId } = req.params;
+  const { id } = req.params;
   const result = await SemesterRegistrationServices.updateSemesterRegistrationIntoDB(
-    registrationId,
+    id,
     req.body
   );
 

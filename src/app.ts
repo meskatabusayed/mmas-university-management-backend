@@ -7,6 +7,7 @@ const app: Application = express();
 
 //perser
 app.use(express.json());
+
 app.use(cors());
 
 //application route;
