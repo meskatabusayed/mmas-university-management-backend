@@ -18,7 +18,7 @@ const createSemesterRegistrationIntoDB = async (
     }
 
     const isSemesterRegistrationAlreadyExist =
-      await AcademicSemester.findOne(academicSemester);
+      await AcademicSemester.findOne({academicSemester});
     if (isSemesterRegistrationAlreadyExist) {
       throw new AppError(
         status.CONFLICT,
