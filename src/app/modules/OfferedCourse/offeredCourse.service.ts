@@ -9,9 +9,10 @@ import { SemesterRegistration } from '../semesterRegistration/semesterRegistrati
 import { TOfferedCourse } from './offeredCourse.interface';
 import { Course } from '../course/course.model';
 import { OfferedCourse } from './offeredCourse.model';
-import { hasTimeConflict } from './OfferedCourse.utils';
+
 import { AcademicFacultyModel } from '../academicFaculty/academicFaculty.model';
 import { AcademicDepartmentModel } from '../academicDepartment/academicDepartment.model';
+import { hasTimeConflict } from './offeredCourse.utils';
 
 
 const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
