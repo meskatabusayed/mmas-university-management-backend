@@ -215,7 +215,7 @@ const resetPassword = async (
   token: string,
 ) => {
   // checking if the user is exist
-  const user = await User.isUserExistsByCustomId(payload?.id);
+  const user = await User.isUserExisByCustomId(payload?.id);
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
@@ -249,7 +249,7 @@ const resetPassword = async (
   //hash new password
   const newHashedPassword = await bcrypt.hash(
     payload.newPassword,
-    Number(config.bcrypt_salt_rounds),
+    Number(config.bcrypt_solt_rounds),
   );
 
   await User.findOneAndUpdate(
