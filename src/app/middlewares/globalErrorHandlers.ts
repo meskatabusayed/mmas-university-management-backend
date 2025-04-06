@@ -1,11 +1,12 @@
 import { ErrorRequestHandler } from 'express';
-import { ZodError,  } from 'zod';
-import { TErrorSources } from '../interface';
+import { ZodError } from 'zod';
+
 import handleZodError from '../errors/handleZodError';
 import handleValidationError from '../errors/handleValidationError';
 import handleCastError from '../errors/handleCastError';
 import handleDuplicateError from '../errors/handleDuplicateError';
 import AppError from '../errors/AppError';
+import { TErrorSources } from '../interface/error';
 
 // Error handler function
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
