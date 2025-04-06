@@ -1,33 +1,65 @@
-import express from 'express';
-
-import { userControllers } from './user.controller';
-
-import { studentValidationSchemas } from '../student/student.validation';
-import validateRequest from '../../middlewares/validateRequest';
-import { createFacultyValidationSchema } from '../Faculty/faculty.validation';
-import { createAdminValidationSchema } from '../Admin/admin.validation';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import express, { NextFunction, Request, Response } from 'express';
 import auth from '../../middlewares/auth';
+import validateRequest from '../../middlewares/validateRequest';
+import { upload } from '../../utils/sendImageToCloudinary';
+import { createAdminValidationSchema } from '../Admin/admin.validation';
+import { createFacultyValidationSchema } from '../Faculty/faculty.validation';
+
 import { USER_ROLE } from './user.constant';
+import { studentValidationSchemas } from '../student/student.validation';
+
+import { userValidation } from './user.validation';
+import { UserControllers } from './user.controller';
+
 
 const router = express.Router();
 
 router.post(
   '/create-student',
-  auth(USER_ROLE.admin),
+  // auth(USER_ROLE.admin),
+  upload.single('file'),
+  (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
+    req.body = JSON.parse(req.body.data);
+    next();
+  },
   validateRequest(studentValidationSchemas.createStudentValidationSchema),
-  userControllers.createStudent
+  UserControllers.createStudent,
 );
 
 router.post(
   '/create-faculty',
+  auth(USER_ROLE.admin),
+  upload.single('file'),
+  (req: Request, res: Response, next: NextFunction) => {
+    req.body = JSON.parse(req.body.data);
+    next();
+  },
   validateRequest(createFacultyValidationSchema),
-  userControllers.createFaculty,
+  UserControllers.createFaculty,
 );
 
 router.post(
   '/create-admin',
+  // auth(USER_ROLE.admin),
+  upload.single('file'),
+  (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
+    req.body = JSON.parse(req.body.data);
+    next();
+  },
   validateRequest(createAdminValidationSchema),
-  userControllers.createAdmin,
+  UserControllers.createAdmin,
 );
 
-export const usersRoutes = router;
+router.post(
+  '/change-status/:id',
+  auth('admin'),
+  validateRequest(userValidation.changeStatusValidationSchema),
+  UserControllers.changeStatus,
+);
+
+router.get('/me', auth('student', 'faculty', 'admin'), UserControllers.getMe);
+
+export const UserRoutes = router;
